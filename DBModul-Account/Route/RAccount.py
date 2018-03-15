@@ -1,10 +1,12 @@
 import logging
 from Controller import AccountController
+from Helper import RequestHelper
 
 class RAccount(object):
 
-    def __init__(self):
+    def __init__(self, requestParam):
         logging.info("@--Router--")
+        AccountController.prepare(RequestHelper.parseRequest(requestParam))
 
 
     def getAccount(self):
