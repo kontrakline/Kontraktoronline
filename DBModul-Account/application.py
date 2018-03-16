@@ -1,4 +1,5 @@
 import logging
+import json
 from Route import RAccount
 from Holder import HResponse
 
@@ -14,7 +15,8 @@ def lambda_handler(pParam):
     except Exception as e :
         print(e)
 
-    return response.getData()
+
+    return json.dumps(response.getData())
 
 
 if __name__ == "__main__" :
