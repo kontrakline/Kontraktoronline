@@ -14,5 +14,5 @@ class RToken(object):
         return TokenController.generateToken()
 
     def encodeToken(self):
-        TokenController.prepare()
+        TokenController.prepare(self._request)
         return TokenController.extractToken()

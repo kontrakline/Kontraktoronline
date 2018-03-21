@@ -14,6 +14,7 @@ class TokenController(object) :
 
     @classmethod
     def generateToken(cls):
+        TokenHelper.prepare(cls._request)
         return TokenHelper.encode()
 
     @classmethod
