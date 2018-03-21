@@ -23,13 +23,16 @@ class TokenHelper(object):
 
         token = jwt.encode(cls._request, "123456789987654321", algorithm="HS256")
 
-        response = {"token" : json.dumps("asdasd")}
+        abc = {"token" : token}
 
-        print(response)
+        print (abc)
+        # response = {"token" : json.dumps("asdasd")}
 
-        # resposne.ErrorCode = 200
-        # resposne.Data = token
-        return jwt.encode({"id" : "1", "username": "Admin"}, "123456789987654321", algorithm="HS256")
+        # print(response)
+
+        resposne.ErrorCode = 200
+        resposne.Data = abc
+        return resposne
 
     @classmethod
     def _decode(cls, paramToken):

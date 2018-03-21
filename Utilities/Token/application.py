@@ -13,7 +13,7 @@ def lambda_handler(pParam):
     try :
         command = getattr(RToken(param), function)
         response = command()
-        print(response)
+        print(json.dumps(response.getData()))
     except Exception as e :
         print(e)
         print("ASDASD")
