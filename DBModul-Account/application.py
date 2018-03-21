@@ -20,7 +20,7 @@ def lambda_handler(pParam):
 
 
 if __name__ == "__main__" :
-    param = {"function" : "getAccount", "data" : {"account_id" : 1}}
+    param = {"function" : "getAccount", "data" : {"account_id" : 3}}
     param_insert = {
         "function" : "insertAccount",
         "data" : {
@@ -30,7 +30,7 @@ if __name__ == "__main__" :
             "account_email" : "admin2@gmail.com",
             "account_phone" : "0812382341234",
             "account_address_id" : 1}}
-    param_delete = {"function" : "deleteAccount", "data" : {"account_id" : 3}}
+    # param_delete = {"function" : "deleteAccount", "data" : {"account_id" : 3}}
     print(lambda_handler(param))
 
     # print(lambda_handler({"function" : "insertAccount", "data" : "[]"}))
