@@ -1,5 +1,7 @@
 import logging
 import json
+from Route import RAccount
+from Holder import HResponse
 
 def lambda_handler(pParam):
 
@@ -16,11 +18,11 @@ def lambda_handler(pParam):
     return json.dumps(response.getData())
 
 if __name__ == "__main__" :
-    param = {"function": "getAccount", "data": {"account_id": 1}}
-    param_insert = {
-        "function": "insertAccount",
-        "data": {
-            }
-    }
+    param = {"function": "getAccount", "data": {"account_id":  ""}}
+    # param_insert = {
+    #     "function": "insertAccount",
+    #     "data": {
+    #         }
+    # }
     # param_delete = {"function": "deleteAccount", "data": {"account_id": 3}}
     print(lambda_handler(param))

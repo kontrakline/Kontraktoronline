@@ -1,6 +1,6 @@
 import logging
 from Controller import AccountController
-
+from Helper import RequestHelper
 
 class RAccount(object):
 
