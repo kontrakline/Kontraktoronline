@@ -2,6 +2,7 @@ import logging
 import json
 from Route import RAccount
 from Holder import HResponse
+from Helper import ResponseHelper
 
 def lambda_handler(pParam):
 
@@ -15,12 +16,11 @@ def lambda_handler(pParam):
     except Exception as e :
         print(e)
 
-
-    return json.dumps(response.getData())
+    return ResponseHelper.formatJSON(response)
 
 
 if __name__ == "__main__" :
-    param = {"function" : "getAccount", "data" : {"account_id" : 3}}
+    param = {"function" : "getAccount", "data" : {"account_id" : 1}}
     param_insert = {
         "function" : "insertAccount",
         "data" : {

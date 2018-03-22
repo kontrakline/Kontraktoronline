@@ -118,7 +118,9 @@ class UDb(object):
     @classmethod
     def _generateResponseFail(cls):
         result = HResponse()
-        result._errorCode = 500
+        result.StatusCode = 500
+        result.Status = False
+        result.Data = {}
 
         return result
 
@@ -132,7 +134,8 @@ class UDb(object):
             for data in cls._result:
                 datas.append(data)
 
-            result.ErrorCode = 200
+            result.StatusCode = 200
+            result.Status = True
             result.Data = datas
 
             return result
@@ -142,7 +145,8 @@ class UDb(object):
 
             data = {"last_id": str(ids)}
 
-            result.ErrorCode = 200
+            result.StatusCode = 200
+            result.Status = True
             result.Data = data
 
             return result
@@ -150,7 +154,8 @@ class UDb(object):
         elif queryType == "update" or queryType == "delete":
             ids = cls._result.lastrowid
 
-            result.ErrorCode = 200
+            result.StatusCode = 200
+            result.Status = True
             result.Data = ids
 
             return result

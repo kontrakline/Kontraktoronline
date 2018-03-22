@@ -24,7 +24,7 @@ class TokenController(object) :
         token = response.getData().get("data")
 
         #Step caching to Redis
-
+        
 
 
         return response
