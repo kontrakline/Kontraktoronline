@@ -6,25 +6,25 @@ class RedisHolder(object):
 
 
     def getKey(self):
-        return self._key
+        return self.Key
 
     @property
     def Key(self):
         return self._key
 
-    @property.setter
+    @Key.setter
     def Key(self, paramKey):
         self._key = paramKey
 
     #=================
 
     def getData(self):
-        return self._data
+        return self.Data
 
     @property
     def Data(self):
         return self._data
 
-    @property.setter
+    @Data.setter
     def Data(self, paramData):
         self._data = paramData

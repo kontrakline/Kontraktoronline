@@ -1,4 +1,5 @@
 from Helper import TokenHelper
+from Holder import HResponse
 
 class TokenController(object) :
 
@@ -9,13 +10,24 @@ class TokenController(object) :
         cls._request = paramRequest
 
     @classmethod
-    def extractToken(cls, paramToken):
-        return TokenHelper.decode(paramToken)
+    def extractToken(cls):
+        return TokenHelper.decode(cls._request.get("token"))
 
     @classmethod
     def generateToken(cls):
+        response = HResponse()
+
         TokenHelper.prepare(cls._request)
-        return TokenHelper.encode()
+
+        response = TokenHelper.encode()
+
+        token = response.getData().get("data")
+
+        #Step caching to Redis
+
+
+
+        return response
 
     @classmethod
     def validateToken(cls):

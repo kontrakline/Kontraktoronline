@@ -17,18 +17,16 @@ class RedisController(object):
 
     @classmethod
     def addKey(cls):
-        URedis.prepare()
         redisHolder = RedisHolder()
-        redisHolder.Key(cls._request.get("key"))
+        redisHolder.Key  = cls._request.get("key")
+        redisHolder.Data = cls._request.get("data")
         return URedis.addKey(redisHolder)
 
     @classmethod
-    def addKey(cls):
-        URedis.prepare()
+    def getKey(cls):
         redisHolder = RedisHolder()
-        redisHolder.Key(cls._request.get("key"))
-        redisHolder.Data(cls._request.get("data"))
-        return URedis.addKey(redisHolder)
+        redisHolder.Key = cls._request.get("key")
+        return URedis.getKey(redisHolder)
 
     @classmethod
     def deleteKey(cls):
