@@ -10,7 +10,7 @@ class URedis(object):
 
     @classmethod
     def _openConnection(cls):
-        cls._client = redis.StrictRedis(host='localhost', port=6379, db=0)
+        cls._client = redis.StrictRedis(host='redis-kontraktor.kegxid.ng.0001.apse1.cache.amazonaws.com', port=6379, db=0)
 
     @classmethod
     def getKey(cls, redisHolder):

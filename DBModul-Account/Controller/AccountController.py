@@ -1,5 +1,6 @@
 import logging
 from Util import UDb
+from Helper import ResponseHelper
 
 class AccountController(object):
     _requestParam = {}
@@ -22,8 +23,39 @@ class AccountController(object):
               "from tbl_account ta, tbl_level tl " \
               "where ta.account_level_id = tl.level_id"
 
+        # Step 1
+        #
+        # Validate parameter
         if cls._requestParam.get("account_id") is not None :
             sql = sql + " and ta.account_id = " + str(cls._requestParam.get("account_id"))
+
+        return UDb.executeSelect(sql)
+
+    @classmethod
+    def getAccountByUsernamePassword(cls):
+        logging.info("@----Controller : getAccountByUsernamePassword ----")
+
+        sql = "select " \
+              "ta.account_id, " \
+              "ta.account_username, " \
+              "ta.account_email, " \
+              "ta.account_phone, " \
+              "tl.level_id, " \
+              "tl.level_name " \
+              "from tbl_account ta, tbl_level tl " \
+              "where ta.account_level_id = tl.level_id"
+
+        # Step 1
+        #
+        # Validasi parameter
+        if cls._requestParam.get("account_username") is None : return ResponseHelper.generateResponseFailed()
+        if cls._requestParam.get("account_password") is None : return ResponseHelper.generateResponseFailed()
+
+        # Step 2
+        #
+        # Concat query
+        sql = sql + " and ta.account_username = '" + str(cls._requestParam.get("account_username")) + "'"
+        sql = sql + " and ta.account_password = '" + str(cls._requestParam.get("account_password")) + "'"
 
         return UDb.executeSelect(sql)
 

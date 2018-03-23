@@ -7,7 +7,7 @@ import pymysql.cursors
 
 class UDb(object):
     _connection = None
-    _config = Config.config_local
+    _config = Config.config_prod
     _databaseType = ""
     _sql = ""
     _result = ""
@@ -54,6 +54,7 @@ class UDb(object):
     def _execute(cls):
         response = 0
         try:
+            print(cls._sql)
             cursor = cls._connection.cursor()
             cursor.execute(cls._sql)
             cls._result = cursor

@@ -13,6 +13,11 @@ class RAccount(object):
         logging.info("@--getAccount--")
         return AccountController.getAccount()
 
+    def getAccountByUsernamePassword(self):
+        logging.info("@--getAccountByUsernamePassword--")
+        return AccountController.getAccountByUsernamePassword()
+
+
     def updateAccount(self):
         logging.info("@--updateAccount--")
         return AccountController.updateAccount()

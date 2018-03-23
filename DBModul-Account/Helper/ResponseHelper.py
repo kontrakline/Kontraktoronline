@@ -12,3 +12,11 @@ class ResponseHelper(object):
         }
 
         return json.loads(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))
+
+    @classmethod
+    def generateResponseSuccess(cls):
+        return ""
+
+    @classmethod
+    def generateResponseFailed(cls):
+        return ""
