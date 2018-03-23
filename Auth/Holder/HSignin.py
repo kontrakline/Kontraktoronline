@@ -1,34 +1,36 @@
-class HTokenRequest(object):
+import json
+
+class HSignin(object):
 
     def __init__(self):
-        self._ipAddress = ""
-        self._imei=""
+        self._username = ""
+        self._password=""
         self._email = ""
 
     #---------------------------------
-    def getipAddress(self):
-        return self.IpAddress
+    def getUsername(self):
+        return self.Username
 
     @property
-    def IpAddress(self):
-        return self._ipAddress
+    def Username(self):
+        return self._username
 
-    @IpAddress.setter
-    def IpAddress(self, value):
-        self._ipAddress = value
+    @Username.setter
+    def Username(self, value):
+        self._username = value
     #---------------------------------
 
     #---------------------------------
-    def getImei(self):
-        return self.Imei
+    def getPassword(self):
+        return self.Password
 
     @property
-    def Imei(self):
-        return self._imei
+    def Password(self):
+        return self._password
 
-    @Imei.setter
-    def Imei(self, value):
-        self._imei = value
+    @Password.setter
+    def Password(self, value):
+        self._password = value
     #---------------------------------
 
     # ---------------------------------
