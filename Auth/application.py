@@ -18,6 +18,6 @@ def lambda_handler(pParam):
     return json.dumps(response)
 
 if __name__ == "__main__" :
-    param = {"function": "getSignin", "data": {"IP":  ""}}
+    param = {"function": "getSignin", "data": {"ipAddress" : "192.168.0.1", "imei" : "", "email" : "admin@admin.com"}}
 
     print(lambda_handler(param))

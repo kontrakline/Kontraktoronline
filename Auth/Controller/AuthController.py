@@ -1,6 +1,8 @@
 import json
 import logging
 import time
+from Holder import HTokenRequest
+from Helper import ResponseHelper
 
 class AuthController(object):
     _requestParam = {}
@@ -18,8 +20,19 @@ class AuthController(object):
     @classmethod
     def getSignin(cls):
         logging.info("@----Controller : getSignin ----")
+        request = HTokenRequest()
+        response = ResponseHelper()
 
-        return "Please Sign in First"
+
+        request.IpAddress = "192.168.0.1"
+        request.Imei = ""
+        request.Email = ""
+
+        # hit Utilities Token
+        # checkToken = getToken(request)
+        # get True or False
+
+        return response
 
     @classmethod
     def getSignout(cls):
