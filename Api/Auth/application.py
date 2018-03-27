@@ -4,10 +4,10 @@ from Route import RAuth
 from Holder import HResponse
 from Helper import ResponseHelper
 
-def lambda_handler(pParam):
+def lambda_handler(event, contex):
 
-    function = pParam["function"]
-    param = pParam["data"]
+    function = event["function"]
+    param = event["data"]
     response = HResponse()
 
     try:
@@ -21,6 +21,6 @@ def lambda_handler(pParam):
     return ResponseHelper.formatJSON(response)
 
 if __name__ == "__main__" :
-    param = {"function": "getSignin", "data": {"ipAddress" : "192.168.0.1", "imei" : "", "email" : "admin@admin.com", "username" : "kaes", "password" : "123456"}}
+    param = {"function": "getSignin", "data": {"ipAddress" : "192.168.0.1", "imei" : "", "email" : "admin@admin.com", "username" : "admin2", "password" : "admin"}}
 
     print(lambda_handler(param))

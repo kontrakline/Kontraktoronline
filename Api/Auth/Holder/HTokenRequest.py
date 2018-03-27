@@ -1,3 +1,5 @@
+import json
+
 class HTokenRequest(object):
 
     def __init__(self):
@@ -46,9 +48,9 @@ class HTokenRequest(object):
 
     def toJSON(self):
         result = {
-            "account_username" : self.Username,
-            "account_email" : self.Email,
-            "account_password" : self.Password
+            "ipAddress" : self.IpAddress,
+            "email" : self.Email,
+            "imei" : self.Imei
         }
 
         return json.dumps(result)
