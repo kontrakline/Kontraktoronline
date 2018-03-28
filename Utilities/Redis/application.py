@@ -1,14 +1,11 @@
-import logging
-import json
 from Route import RRedis
-# from Holder.RedisHolder import RedisHolder
-# from Helper import ResponseHelper
+from Holder import HResponse
 
 def lambda_handler(event, context):
 
     function = event["function"]
     param    = event["data"]
-    response = False
+    response = HResponse()
 
     try :
         command = getattr(RRedis(param), function)
@@ -16,7 +13,7 @@ def lambda_handler(event, context):
     except Exception as e :
         print(e)
 
-    return response
+    return response.toJSON()
     # return ResponseHelper.formatJSON(response)
 
 

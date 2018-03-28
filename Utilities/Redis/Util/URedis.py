@@ -1,4 +1,5 @@
 import redis
+from Holder import HResponse
 
 class URedis(object):
 
@@ -15,26 +16,29 @@ class URedis(object):
     @classmethod
     def getKey(cls, redisHolder):
         cls._openConnection()
-        response = False
+        response = HResponse()
 
         try :
-            response = cls._client.get(redisHolder.Key)
+            result = cls._client.get(redisHolder.Key)
 
-            if not response :
-                response = False
+            if not result :
+                response = cls._generateResponseFailed()
+            else :
+                response = cls._generateResponseSuccess(result)
         except Exception as e :
-            print(e)
+            response = cls._generateResponseFailed()
         return response
 
     @classmethod
     def addKey(cls, redisHolder):
         cls._openConnection()
 
-        response = False
+        response = HResponse()
         try :
-            response = cls._client.set(redisHolder.Key, redisHolder.Data)
+            result = cls._client.set(redisHolder.Key, redisHolder.Data)
+            response = cls._generateResponseSuccess(result)
         except Exception as e :
-            print(e)
+            response = cls._generateResponseFailed()
         return response
 
     @classmethod
@@ -43,10 +47,37 @@ class URedis(object):
 
     @classmethod
     def deleteKey(cls, redisHolder):
-        response = False
+        response = HResponse()
 
         try:
-            response = cls._client.delete(redisHolder.Key)
+            result = cls._client.delete(redisHolder.Key)
+            response = cls._generateResponseSuccess(result)
+        except Exception as e :
+            response = cls._generateResponseFailed()
+        return response
+
+    @classmethod
+    def _generateResponseSuccess(cls, data):
+        response = HResponse()
+
+        try :
+            responseData = data
+            if type(data) is not dict:
+                responseData = data.decode()
+
+            response.StatusCode = 200
+            response.Status = True
+            response.Data = {"data": responseData}
+            return response
         except Exception as e :
             print(e)
+            return cls._generateResponseFail()
+
+    @classmethod
+    def _generateResponseFailed(cls):
+        response = HResponse()
+
+        response.StatusCode = 500
+        response.Status = False
+        response.Data = {"data": ""}
         return response

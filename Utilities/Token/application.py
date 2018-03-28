@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     except Exception as e :
         print(e)
 
-    return ResponseHelper.formatJSON(response)
+    return response.toJSON()
 
 
 # if __name__ == "__main__" :

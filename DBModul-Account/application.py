@@ -20,7 +20,7 @@ def lambda_handler(event, context):
 
 
 # if __name__ == "__main__" :
-#     param = {"function" : "getAccountByUsernamePassword", "data" : {"account_username" : "admin2", "account_password" : "admin"}}
+#     param = {"function" : "getAccountByUsernamePassword", "data" : {"account_username" : "admin22", "account_password" : "admin"}}
 #     param_insert = {
 #         "function" : "insertAccount",
 #         "data" : {

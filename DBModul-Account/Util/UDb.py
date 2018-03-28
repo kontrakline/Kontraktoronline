@@ -54,10 +54,9 @@ class UDb(object):
     def _execute(cls):
         response = 0
         try:
-            print(cls._sql)
             cursor = cls._connection.cursor()
             cursor.execute(cls._sql)
-            cls._result = cursor
+            cls._result = cursor.fetchall()
             response = 1
         except Exception as e:
             logging.error("@--Execution Query --")
@@ -73,6 +72,7 @@ class UDb(object):
 
         if cls._openConnection() == 0: return cls.response
         if cls._execute() == 0: return cls._response
+        if len(cls._result) == 0 : return cls._response
 
         cls._closeConnection()
         return cls._generateResponseSuccess("select")
@@ -85,6 +85,7 @@ class UDb(object):
 
         if cls._openConnection() == 0 : return cls.response
         if cls._execute() == 0 : return cls._response
+        if len(cls._result) == 0 : return cls._response
 
         cls._commit()
         cls._closeConnection()
@@ -98,6 +99,7 @@ class UDb(object):
 
         if cls._openConnection() == 0: return cls.response
         if cls._execute() == 0: return cls._response
+        if len(cls._result) == 0 : return cls._response
 
         cls._commit()
         cls._closeConnection()
@@ -111,6 +113,7 @@ class UDb(object):
 
         if cls._openConnection() == 0 : return cls.response
         if cls._execute() == 0 : return cls._response
+        if len(cls._result) == 0 : return cls._response
 
         cls._commit()
         cls._closeConnection()
