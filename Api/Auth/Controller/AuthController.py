@@ -42,6 +42,7 @@ class AuthController(object):
 
         return "Auto Login Success"
 
+
     @classmethod
     def getSignin(cls):
 
@@ -90,7 +91,7 @@ class AuthController(object):
         #     "Status": True,
         #     "Data": {
         #         "data": []
-        #     }
+        #     }c
         # }
 
 
@@ -110,8 +111,8 @@ class AuthController(object):
         requestsRegister= HRegister()
 
 
+        # Start
         # Step1
-        #
         #Request to DB
 
         reqeustSignInParam.Username = cls._requestParam.get("username")
@@ -124,8 +125,10 @@ class AuthController(object):
 
         if not registerResponse.get("status"): return ResponseHelper.generateResponseFail()
 
+
+
         # End
         #
-        # Step 2
+        # Step 1
 
         return "Success to Register your account"

@@ -75,7 +75,7 @@ class Microservice(object):
         # print (json.dumps(request))
 
         logging.info("@ ---- Microservice: Send data ----")
-        response = requests.post(url=cls._url_register, headers= headers, json=request)
+        response = requests.post(url=cls._url_account, headers= headers, json=request)
         response = response.json()
 
         return  response
