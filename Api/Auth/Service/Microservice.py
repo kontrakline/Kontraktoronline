@@ -9,12 +9,13 @@ import json
 
 class Microservice(object):
 
-    _env        = None
-    _url_redis  = None
-    _url_token  = None
-    _url_account= None
-    _url_register= None
-    _request    = None
+    _env                = None
+    _url_redis          = None
+    _url_token          = None
+    _url_login        = None
+    _url_register       = None
+    _url_changePassword = None
+    _request            = None
 
 
 
@@ -22,11 +23,12 @@ class Microservice(object):
     def prepre(cls, paramRequest):
         logging.info("@---- Initialize Microservice ----")
 
-        cls._env        = envHelper.getEnv()
-        cls._url_token  = cls._env.TOKEN
-        cls._url_account= cls._env.DB_MODULE_ACCOUNT
-        cls._url_register = cls._env.DB_MODULE_ACCOUNT
-        cls._request    = paramRequest
+        cls._env                = envHelper.getEnv()
+        cls._url_token          = cls._env.TOKEN
+        cls._url_login          = cls._env.DB_MODULE_ACCOUNT_NEW
+        cls._url_register       = cls._env.DB_MODULE_ACCOUNT_NEW
+        cls._url_changePassword = cls._env.DB_MODULE_ACCOUNT_NEW
+        cls._request            = paramRequest
 
     @classmethod
     def getToken(cls):
@@ -45,19 +47,19 @@ class Microservice(object):
         return response
 
     @classmethod
-    def getAccount(cls):
+    def login(cls):
         logging.info("@---- Microservice: getAccount ----")
 
         headers = {"Content-type": "application/json"}
         request = {
-            "function": "getAccountByUsernamePassword",
+            "function": "login",
             "data": cls._request
         }
 
         # print(json.dumps(request))
 
         logging.info("@ ---- Microservice: Send data ---- ")
-        response = requests.post(url=cls._url_account, headers=headers, json=request)
+        response = requests.post(url=cls._url_login, headers=headers, json=request)
         response = response.json()
 
         return response
@@ -75,7 +77,25 @@ class Microservice(object):
         # print (json.dumps(request))
 
         logging.info("@ ---- Microservice: Send data ----")
-        response = requests.post(url=cls._url_account, headers= headers, json=request)
+        response = requests.post(url=cls._url_register, headers= headers, json=request)
         response = response.json()
 
         return  response
+
+    @classmethod
+    def changePassword(cls):
+        logging.info("@ ---- Microservice : changePassword ----")
+
+        headers = {"Content-type" : "application/json"}
+        request = {
+            "function": "changePassword",
+            "data": cls._request
+        }
+
+        # print (json.dumps(request))
+
+        logging.info("@ ---- Microservice: Send data ----")
+        response = requests.post(url=cls._url_changePassword, headers = headers, json=request)
+        response = response.json()
+
+        return response

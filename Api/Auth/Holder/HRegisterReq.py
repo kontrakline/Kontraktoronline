@@ -1,6 +1,6 @@
 import json
 
-class HSignin(object):
+class HRegisterReq(object):
 
     def __init__(self):
         self._username = ""

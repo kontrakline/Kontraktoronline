@@ -8,15 +8,12 @@ class RAuth(object):
         logging.info("@--Router--")
         AuthController.prepare(RequestHelper.parseRequest(requestParam))
 
-    def getAutoLogin(self):
-        logging.info("@ - - getAutoLogin")
-        ## cheking redis
-        return AuthController.getAutoLogin()
 
-    def getSignin(self):
-        logging.info("@ - - getSiginin")
-        ## cheking redis
-        return AuthController.getSignin()
+
+    def getLogin(self):
+        logging.info("@ - - getLogin")
+
+        return AuthController.getLogin()
 
     def getSignout(self):
         logging.info("@ - - getSignout")
@@ -27,3 +24,8 @@ class RAuth(object):
         logging.info("@ - - getRegister")
 
         return AuthController.getRegister()
+
+    def changePassword(self):
+        logging.info("@ - - changePassword")
+
+        return  AuthController.changePassword()

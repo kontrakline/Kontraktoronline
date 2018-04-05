@@ -1,24 +1,11 @@
 import json
 
-class HRegister(object):
+class HPassword(object):
 
     def __init__(self):
-        self._username = ""
         self._password=""
         self._email = ""
 
-    #---------------------------------
-    def getUsername(self):
-        return self.Username
-
-    @property
-    def Username(self):
-        return self._username
-
-    @Username.setter
-    def Username(self, value):
-        self._username = value
-    #---------------------------------
 
     #---------------------------------
     def getPassword(self):
@@ -48,7 +35,6 @@ class HRegister(object):
 
     def toJSON(self):
         result = {
-            "account_username" : self.Username,
             "account_email" : self.Email,
             "account_password" : self.Password
         }

@@ -2,11 +2,14 @@ import json
 import logging
 import time
 import requests
+import hashlib
+import random
 
 from Holder import HTokenRequest
-from Holder import HSignin
-from Holder import HRegister
+from Holder import HLogin
+from Holder import HRegisterReq
 from Holder import HResponse
+from Holder import HPassword
 from Helper import ResponseHelper
 from Service import SCurl
 from Service import Microservice
@@ -18,53 +21,40 @@ class AuthController(object):
     def prepare(cls, requestParam):
         cls._requestParam = requestParam
 
-    @classmethod
-    def getAutoLogin(cls):
-        logging.info("@----Controller : getAutoLogin ----")
-        requestTokenParam = HTokenRequest()
-
-        # Start
-        # Step 1
-        # Cheking Token to Redis
-
-        reqeustSignInParam.Username = cls._requestParam.get("username")
-        reqeustSignInParam.Password = cls._requestParam.get("password")
-        reqeustSignInParam.Email = cls._requestParam.get("email")
-
-        sendToRedisResponse = SCurl.sendRequest(requestSignInParam.toJson())
-        sendToRedisResponse = json.load(sendToRedisResponse)
-
-        if not sendToRedisResponse.get("Status") : return ResponseHelper.generateResponseFail()
-
-        # End
-        #
-        # Step 1
-
-        return "Auto Login Success"
-
 
     @classmethod
-    def getSignin(cls):
+    def getLogin(cls):
 
         logging.info("@----Controller : getSignin ----")
         requestTokenParam   = HTokenRequest()
-        reqeustSignInParam  = HSignin()
+        requestLoginParam  = HLogin()
 
 
         # Start
         # Step 1
         # Build DB Modul param request
 
-        reqeustSignInParam.Username = cls._requestParam.get("username")
-        reqeustSignInParam.Password = cls._requestParam.get("password")
+        requestLoginParam.Email     = cls._requestParam.get("email")
+        requestLoginParam.Password  = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
+        requestLoginParam.Imei      = cls._requestParam.get("imei")
+        requestLoginParam.IpAddress = cls._requestParam.get("ipAddress")
 
-        Microservice.prepre(json.loads(reqeustSignInParam.toJSON()))
-        dbmodulResponse = Microservice.getAccount()
+        Microservice.prepre(json.loads(requestLoginParam.toJSON()))
+        dbmodulResponse = Microservice.login()
         dbmodulResponse = json.loads(json.dumps(dbmodulResponse))
+
         print (dbmodulResponse)
+
 
         if not dbmodulResponse.get("status") : return ResponseHelper.generateResponseFail()
 
+        # compare the password
+        password = json.loads(json.dumps(dbmodulResponse.get("data")))
+        password = password[0].get("account_password")
+        password = password[3::]
+
+
+        if requestLoginParam.Password != password: return ResponseHelper.generateResponseFail()
         # End
         #
         # Step 1
@@ -73,8 +63,8 @@ class AuthController(object):
         # Step 2
         # Build Token param request
         requestTokenParam.IpAddress = cls._requestParam.get("ipAddress")
-        requestTokenParam.Imei = cls._requestParam.get("imei")
-        requestTokenParam.Email = dbmodulResponse.get("email")
+        requestTokenParam.Imei      = cls._requestParam.get("imei")
+        requestTokenParam.Email     = cls._requestParam.get("email")
 
         Microservice.prepre(json.loads(requestTokenParam.toJSON()))
         tokenResponse = Microservice.getToken()
@@ -86,17 +76,9 @@ class AuthController(object):
         #
         # Step 2
 
-        # dbmodulResponse= {
-        #     "StatusCode": 200 ,
-        #     "Status": True,
-        #     "Data": {
-        #         "data": []
-        #     }c
-        # }
-
 
         #Success
-        return  ResponseHelper.generateResponseSuccess(dbmodulResponse.get("data"))
+        return  ResponseHelper.generateResponseSuccess(tokenResponse.get("data"))
 
     @classmethod
     def getSignout(cls):
@@ -108,27 +90,74 @@ class AuthController(object):
     def getRegister(cls):
         logging.info("@----Controller : Register ----")
 
-        requestsRegister= HRegister()
+        requestRegisterParam= HRegisterReq()
+        response = HResponse()
 
 
         # Start
         # Step1
-        #Request to DB
+        # Request to DB
+        requestRegisterParam.Username = cls._requestParam.get("username")
+        requestRegisterParam.Email = cls._requestParam.get("email")
+        requestRegisterParam.Password = cls._requestParam.get("password")
+        requestRegisterParam.Password = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
+        requestRegisterParam.Password = str(random.randrange(100,999)) + str(requestRegisterParam.Password)
+        print (requestRegisterParam.toJSON())
+        print "++++++++++++++++"
 
-        reqeustSignInParam.Username = cls._requestParam.get("username")
-        reqeustSignInParam.Password = cls._requestParam.get("password")
-        reqeustSignInParam.Email = cls._requestParam.get("email")
-
-        Microservice.prepre(json.loads(requestsRegister.toJSON()))
+        Microservice.prepre(json.loads(requestRegisterParam.toJSON()))
         registerResponse = Microservice.register()
         registerResponse = json.loads(json.dumps(registerResponse))
+        print (registerResponse)
+        print "----------"
 
         if not registerResponse.get("status"): return ResponseHelper.generateResponseFail()
 
+
+        # Request to Method Login after succes
+        # requestLoginParam = HLogin()
+        # requestLoginParam.Email     = cls._requestParam.get("email")
+        # requestLoginParam.Imei      = cls._requestParam.get("imei")
+        # requestLoginParam.IpAddress = cls._requestParam.get("ipAddress")
+        #
+        # cls.prepare(requestLoginParam.toJSON())
+        # cls.getLogin()
 
 
         # End
         #
         # Step 1
 
-        return "Success to Register your account"
+        return ResponseHelper.generateResponseSuccess({"data" : "tes"})
+
+
+
+    @classmethod
+    def changePassword(cls):
+        logging.info ("@ ---- Controller : changePassword")
+
+        requestPasswordParam =  HPassword()
+
+        # Start
+        # Step1
+        # Request to DB
+
+        requestPasswordParam.Email = cls._requestParam.get("email")
+        requestPasswordParam.Password  = cls._requestParam.get("password")
+        requestPasswordParam.Password = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
+        requestPasswordParam.Password = str(random.randrange(100,999)) + str(requestPasswordParam.Password)
+
+        Microservice.prepre(json.loads(requestPasswordParam.toJSON()))
+        changePasswordResponse = Microservice.changePassword()
+        changePasswordResponse = json.loads(json.dumps(changePasswordResponse))
+        print (changePasswordResponse)
+        print "-------------"
+
+        if not changePasswordResponse.get("status"): return ResponseHelper.generateResponseFail()
+
+        # End
+        #
+        # Step 1
+
+        return  ResponseHelper.generateResponseSuccess({"data":"tes"})
+
