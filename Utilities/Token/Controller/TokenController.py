@@ -1,5 +1,9 @@
 from Helper import TokenHelper
 from Holder import HResponse
+from Holder import HSessionRequest
+from Service import SRedis
+from Helper import ResponseHelper
+import json
 
 class TokenController(object) :
 
@@ -10,30 +14,40 @@ class TokenController(object) :
         cls._request = paramRequest
 
     @classmethod
-    def extractToken(cls):
-        return TokenHelper.decode(cls._request.get("token"))
-
-    @classmethod
     def generateToken(cls):
         response = HResponse()
 
-        TokenHelper.prepare(cls._request)
+        # Step 1
+        #
+        # Validasi parameter
 
-        response = TokenHelper.encode()
+        if cls._request.get("ipAddress") and cls._request.get("imei") is None : return ResponseHelper.generateResponseFail()
+        if cls._request.get("email") is None : return ResponseHelper.generateResponseFail()
 
+        # Step 2
+        #
+        # Generate Token
+        response = TokenHelper.encode(cls._request)
         token = response.getData().get("data")
 
-        #Step caching to Redis
-        
+        # Step 3
+        #
+        # Caching to redis
+
+        hsession = HSessionRequest()
+        hsession.Data = token
+        if cls._request.get("ipAddress") is not None :
+            hsession.Key = cls._request.get("ipAddress")
+        else :
+            hsession.Key = cls._request.get("imei")
 
 
-        return response
+        sredis = SRedis()
+        sredisResponse = json.loads(json.dumps(sredis.createSession(hsession)))
+        print(sredisResponse)
 
-    @classmethod
-    def validateToken(cls):
-        validToken = URedis.checkToken(cls._request.get("ipAddress"))
+        if not sredisResponse.get("status") :
+            return ResponseHelper.generateResponseFail()
 
-        if not validToken : return False
 
-        return True
-
+        return ResponseHelper.generateResponseSuccess(token)

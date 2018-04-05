@@ -3,24 +3,19 @@ import json
 from Holder.HResponse import HResponse
 
 class TokenHelper(object):
-    _request = None
 
     @classmethod
-    def prepare(cls, paramRequest):
-        cls._request = paramRequest
-
-    @classmethod
-    def encode(cls):
-        return cls._encode()
+    def encode(cls, content):
+        return cls._encode(content)
 
     @classmethod
     def decode(cls, paramToken):
         return cls._decode(paramToken)
 
     @classmethod
-    def _encode(cls):
+    def _encode(cls, content):
         try :
-            token = jwt.encode(cls._request, "123456789987654321", algorithm="HS256")
+            token = jwt.encode(content, "123456789987654321", algorithm="HS256")
 
             if token :
                 return cls._generateResponseSuccess(token)

@@ -1,3 +1,5 @@
+import json
+
 class HResponse(object):
 
     def __init__(self):
@@ -43,3 +45,12 @@ class HResponse(object):
     def Data(self, value):
         self._data = value
     # ---------------------------------
+
+    def toJSON(self):
+        result = {
+            "status": self.getStatus(),
+            "statusCode": self.getStatusCode(),
+            "data": self.getData()
+        }
+
+        return json.loads(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))

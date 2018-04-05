@@ -1,4 +1,4 @@
-class RedisHolder(object):
+class HRedis(object):
 
     def __init__(self):
         self._key = None

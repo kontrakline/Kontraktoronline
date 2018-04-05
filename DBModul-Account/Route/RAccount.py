@@ -9,23 +9,15 @@ class RAccount(object):
         AccountController.prepare(RequestHelper.parseRequest(requestParam))
 
 
-    def getAccount(self):
-        logging.info("@--getAccount--")
-        return AccountController.getAccount()
+    def login(self):
+        logging.info("@--login--")
+        return AccountController.loginByEmail()
 
-    def getAccountByUsernamePassword(self):
-        logging.info("@--getAccountByUsernamePassword--")
-        return AccountController.getAccountByUsernamePassword()
+    def changePassword(self):
+        logging.info("@--changePassword--")
+        return AccountController.changePassword()
 
+    def register(self):
+        logging.info("@--register--")
+        return AccountController.registerAccount()
 
-    def updateAccount(self):
-        logging.info("@--updateAccount--")
-        return AccountController.updateAccount()
-
-    def insertAccount(self):
-        logging.info("@--insertAccount--")
-        return AccountController.insertAccount()
-
-    def deleteAccount(self):
-        logging.info("@--deketeAccount--")
-        return AccountController.deleteAccount()

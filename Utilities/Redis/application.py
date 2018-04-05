@@ -13,7 +13,7 @@ def lambda_handler(event, context):
     except Exception as e :
         print(e)
 
-    return response.toJSON()
+    return response
     # return ResponseHelper.formatJSON(response)
 
 

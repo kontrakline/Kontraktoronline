@@ -85,7 +85,7 @@ class UDb(object):
 
         if cls._openConnection() == 0 : return cls.response
         if cls._execute() == 0 : return cls._response
-        if len(cls._result) == 0 : return cls._response
+        if cls._result == 0 : return cls._response
 
         cls._commit()
         cls._closeConnection()
@@ -99,7 +99,6 @@ class UDb(object):
 
         if cls._openConnection() == 0: return cls.response
         if cls._execute() == 0: return cls._response
-        if len(cls._result) == 0 : return cls._response
 
         cls._commit()
         cls._closeConnection()
@@ -145,9 +144,8 @@ class UDb(object):
             return result
 
         elif queryType == "insert":
-            ids = cls._result.lastrowid
 
-            data = {"last_id": str(ids)}
+            data = {}
 
             result.StatusCode = 200
             result.Status = True
@@ -156,7 +154,7 @@ class UDb(object):
             return result
 
         elif queryType == "update" or queryType == "delete":
-            ids = cls._result.lastrowid
+            ids = {}
 
             result.StatusCode = 200
             result.Status = True

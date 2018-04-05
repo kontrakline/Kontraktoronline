@@ -1,4 +1,4 @@
 __All__ = ["Holder"]
 
-from Holder.RedisHolder import RedisHolder
+from Holder.HRedis import HRedis
 from Holder.HResponse import  HResponse
