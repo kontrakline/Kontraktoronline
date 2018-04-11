@@ -13,9 +13,10 @@ class VendorController(object):
     def prepare(cls, requestParam):
         cls._requestParam = requestParam
 
+
     @classmethod
-    def getVendorById(cls):
+    def getVendorRecomendation(cls):
 
-        logging.info ("@ ---- Controller:getVendorById ----")
+        logging.info ("@ ---- Controller: getVendorRecomendation ----")
 
-        return "getVendorById"
+        return "getVendorRecomendation"

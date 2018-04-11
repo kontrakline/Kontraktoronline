@@ -34,10 +34,16 @@ class AuthController(object):
         # Step 1
         # Build DB Modul param request
 
+
+        ### Cheking Param Exist
         requestLoginParam.Email     = cls._requestParam.get("email")
         requestLoginParam.Password  = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
         requestLoginParam.Imei      = cls._requestParam.get("imei")
         requestLoginParam.IpAddress = cls._requestParam.get("ipAddress")
+
+        if not requestLoginParam : return  ResponseHelper.generateResponseFail()
+
+        ### End of cheking param process
 
         Microservice.prepre(json.loads(requestLoginParam.toJSON()))
         dbmodulResponse = Microservice.login()
@@ -97,13 +103,18 @@ class AuthController(object):
         # Start
         # Step1
         # Request to DB
+
+        ### Cheking Param Exist
         requestRegisterParam.Username = cls._requestParam.get("username")
         requestRegisterParam.Email = cls._requestParam.get("email")
         requestRegisterParam.Password = cls._requestParam.get("password")
         requestRegisterParam.Password = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
         requestRegisterParam.Password = str(random.randrange(100,999)) + str(requestRegisterParam.Password)
-        print (requestRegisterParam.toJSON())
-        print "++++++++++++++++"
+
+
+        if not requestRegisterParam: return ResponseHelper.generateResponseFail()
+
+        ### End of cheking param process
 
         Microservice.prepre(json.loads(requestRegisterParam.toJSON()))
         registerResponse = Microservice.register()
@@ -142,10 +153,15 @@ class AuthController(object):
         # Step1
         # Request to DB
 
+        ### Cheking Param Exist
         requestPasswordParam.Email = cls._requestParam.get("email")
         requestPasswordParam.Password  = cls._requestParam.get("password")
         requestPasswordParam.Password = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
         requestPasswordParam.Password = str(random.randrange(100,999)) + str(requestPasswordParam.Password)
+
+        if not requestPasswordParam: return  ResponseHelper.generateResponseFail()
+
+        ### End of cheking param process
 
         Microservice.prepre(json.loads(requestPasswordParam.toJSON()))
         changePasswordResponse = Microservice.changePassword()

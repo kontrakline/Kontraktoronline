@@ -10,7 +10,7 @@ class Rvendor(object):
         logging.info("@----Router---")
         VendorController.prepare(RequestHelper.parseRequest(requestParam))
 
-    def getVendorRecom(self):
-        logging.info("@ - - getVendorRecom")
+    def getVendorRecomendation(self):
+        logging.info("@ - - getVendorRecomendation")
         ###checking redis
-        return VendorController.getVendorById()
+        return VendorController.getVendorRecomendation()
