@@ -19,4 +19,24 @@ class VendorController(object):
 
         logging.info ("@ ---- Controller: getVendorRecomendation ----")
 
+        # Step 1
+
+        # get Param here
+
+
+        # connect to DB module
+
+
+        # Response from Db
+
+
+        # Response to Mobile
+
+
+        # End
+
+
+
+
+
         return "getVendorRecomendation"

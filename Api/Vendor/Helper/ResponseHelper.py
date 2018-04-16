@@ -6,12 +6,17 @@ class ResponseHelper(object):
 
     @classmethod
     def formatJSON(cls, holder):
-
         result = {
-            "status" : holder.getStatus(),
+            "status": holder.getStatus(),
             "statusCode" : holder.getStatusCode(),
-            "data" : holder.getData()
+            "data": holder.getData()
         }
+
+        # result = {
+        #     "status" : holder.getStatus(),
+        #     "statusCode" : holder.getStatusCode(),
+        #     "data" : holder.getData()
+        # }
 
         return json.dumps(result)
 
