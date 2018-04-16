@@ -72,4 +72,4 @@ class HLogin(object):
 
         }
 
-        return json.dumps(result)
+        return json.loads(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))

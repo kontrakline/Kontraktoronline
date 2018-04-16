@@ -53,4 +53,4 @@ class HRegisterReq(object):
             "account_password" : self.Password
         }
 
-        return json.dumps(result)
+        return json.loads(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))

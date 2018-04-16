@@ -10,6 +10,8 @@ def lambda_handler(event, contex):
     param = event["data"]
     response = HResponse()
 
+
+
     try:
         command = getattr(RAuth(param), function)
         response = command()
@@ -21,6 +23,6 @@ def lambda_handler(event, contex):
     return ResponseHelper.formatJSON(response)
 
 if __name__ == "__main__" :
-    param = {"function": "getLogin", "data": { "email" : "rocket@yahoo.com", "password" : "1234567898", "ipAddress":"192301238", "imei":""}}
+    param = {"function": "changePassword", "data": { "email" : "COB1A@yahoo.com", "password" : "12345678", "username":"COB1A"}}
 
     print(lambda_handler(param, ""))

@@ -35,21 +35,25 @@ class AuthController(object):
         # Build DB Modul param request
 
 
+
         ### Cheking Param Exist
         requestLoginParam.Email     = cls._requestParam.get("email")
         requestLoginParam.Password  = hashlib.md5(cls._requestParam.get("password").encode("utf")).hexdigest()
         requestLoginParam.Imei      = cls._requestParam.get("imei")
         requestLoginParam.IpAddress = cls._requestParam.get("ipAddress")
 
+
         if not requestLoginParam : return  ResponseHelper.generateResponseFail()
 
         ### End of cheking param process
 
-        Microservice.prepre(json.loads(requestLoginParam.toJSON()))
+        Microservice.prepre(requestLoginParam.toJSON())
+
+
         dbmodulResponse = Microservice.login()
         dbmodulResponse = json.loads(json.dumps(dbmodulResponse))
 
-        print (dbmodulResponse)
+
 
 
         if not dbmodulResponse.get("status") : return ResponseHelper.generateResponseFail()
@@ -60,19 +64,21 @@ class AuthController(object):
         password = password[3::]
 
 
+
         if requestLoginParam.Password != password: return ResponseHelper.generateResponseFail()
         # End
-        #
+
         # Step 1
 
         # Start
         # Step 2
         # Build Token param request
+
         requestTokenParam.IpAddress = cls._requestParam.get("ipAddress")
         requestTokenParam.Imei      = cls._requestParam.get("imei")
         requestTokenParam.Email     = cls._requestParam.get("email")
 
-        Microservice.prepre(json.loads(requestTokenParam.toJSON()))
+        Microservice.prepre(requestTokenParam.toJSON())
         tokenResponse = Microservice.getToken()
         tokenResponse = json.loads(json.dumps(tokenResponse))
 
@@ -82,9 +88,20 @@ class AuthController(object):
         #
         # Step 2
 
+        userDetail = dbmodulResponse.get("data")[0]
+
+        responseData = {}
+        responseData["id"] = userDetail.get("account_id")
+        responseData["nama"] = userDetail.get("account_username")
+        responseData["email"] = userDetail.get("account_email")
+        responseData["level_id"] = userDetail.get("level_id")
+        responseData["level_name"] = userDetail.get("level_name")
+        responseData["token"] = tokenResponse.get("data")
+
+
 
         #Success
-        return  ResponseHelper.generateResponseSuccess(tokenResponse.get("data"))
+        return  ResponseHelper.generateResponseSuccess(responseData)
 
     @classmethod
     def getSignout(cls):
@@ -116,7 +133,7 @@ class AuthController(object):
 
         ### End of cheking param process
 
-        Microservice.prepre(json.loads(requestRegisterParam.toJSON()))
+        Microservice.prepre(requestRegisterParam.toJSON())
         registerResponse = Microservice.register()
         registerResponse = json.loads(json.dumps(registerResponse))
         print (registerResponse)
@@ -139,7 +156,7 @@ class AuthController(object):
         #
         # Step 1
 
-        return ResponseHelper.generateResponseSuccess({"data" : "tes"})
+        return ResponseHelper.generateResponseSuccess({})
 
 
 
@@ -163,7 +180,7 @@ class AuthController(object):
 
         ### End of cheking param process
 
-        Microservice.prepre(json.loads(requestPasswordParam.toJSON()))
+        Microservice.prepre(requestPasswordParam.toJSON())
         changePasswordResponse = Microservice.changePassword()
         changePasswordResponse = json.loads(json.dumps(changePasswordResponse))
         print (changePasswordResponse)
@@ -175,5 +192,5 @@ class AuthController(object):
         #
         # Step 1
 
-        return  ResponseHelper.generateResponseSuccess({"data":"tes"})
+        return  ResponseHelper.generateResponseSuccess()
 

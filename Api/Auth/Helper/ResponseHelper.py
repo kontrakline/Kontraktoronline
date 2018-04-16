@@ -8,20 +8,20 @@ class ResponseHelper(object):
 
         result = {
             "status" : holder.getStatus(),
-            "statusCode" : holder.getStatusCode(),
+            "message" : holder.getMessage(),
             "data" : holder.getData()
         }
 
-        return json.dumps(result)
+        return json.loads(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))
 
     @classmethod
     def generateResponseSuccess(cls, paramdata):
 
         response = HResponse()
 
-        response.StatusCode = 200
+        response.Message = ("")
         response.Status = True
-        response.Data = {"data":paramdata}
+        response.Data = paramdata
 
         return response
 
@@ -30,7 +30,7 @@ class ResponseHelper(object):
 
         response = HResponse()
 
-        response.StatusCode = 500
+        response.Message = ("Something Wrong")
         response.Status = False
         response.Data = {}
 
