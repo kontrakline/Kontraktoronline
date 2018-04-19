@@ -141,8 +141,6 @@ class UDb(object):
             result.Status = True
             result.Data = datas
 
-            return result
-
         elif queryType == "insert":
 
             data = {}
@@ -151,8 +149,6 @@ class UDb(object):
             result.Status = True
             result.Data = data
 
-            return result
-
         elif queryType == "update" or queryType == "delete":
             ids = {}
 
@@ -160,5 +156,5 @@ class UDb(object):
             result.Status = True
             result.Data = ids
 
-            return result
+        return result.toJSON()
 

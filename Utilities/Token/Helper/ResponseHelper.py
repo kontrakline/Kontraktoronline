@@ -21,7 +21,7 @@ class ResponseHelper(object):
 
         response.StatusCode = 200
         response.Status = True
-        response.Data = {"data":paramdata}
+        response.Data = paramdata
 
         return response
 
