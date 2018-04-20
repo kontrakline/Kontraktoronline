@@ -23,6 +23,6 @@ def lambda_handler(event, contex):
     return ResponseHelper.formatJSON(response)
 
 if __name__ == "__main__" :
-    param = {"function": "changePassword", "data": { "email" : "COB1A@yahoo.com", "password" : "12345678", "username":"COB1A"}}
+    param = {"function": "changePassword", "data": { "email" : "COB1A@yahoo.com", "password" : "1234567", "username":"COB1A"}}
 
     print(lambda_handler(param, ""))

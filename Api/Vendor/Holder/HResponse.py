@@ -1,23 +1,24 @@
 class HResponse(object):
 
     def __init__(self):
-        self._statusCode = ""
+        self._message = ""
         self._data = ""
         self._status = False
 
-    #-----------------------------
-    def getStatusCode(self):
-        return self.StatusCode
+    # ---------------------------------
+
+    def getMessage(self):
+        return self.Message
 
     @property
-    def StatusCode(self):
-        return self._statusCode
+    def Message(self):
+        return self._message
 
-    @StatusCode.setter
-    def StatusCode(self, value):
-        self._statusCode = value
+    @Message.setter
+    def Message(self, value):
+        self._message = value
 
-    # -----------------------------
+    # ---------------------------------
 
     # -----------------------------
     def getData(self):
@@ -33,7 +34,7 @@ class HResponse(object):
 
     # -----------------------------
 
-    # -----------------------------
+    #---------------------------------
     def getStatus(self):
         return self.Status
 
@@ -44,5 +45,6 @@ class HResponse(object):
     @Status.setter
     def Status(self, value):
         self._status = value
+    #---------------------------------
 
 

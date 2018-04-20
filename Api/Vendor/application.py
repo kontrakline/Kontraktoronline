@@ -21,6 +21,6 @@ def lambda_handler(event, contex):
     return ResponseHelper.formatJSON(response)
 
 if __name__ == "__main__" :
-    param = {"function": "getVendorRecomendation", "data": {"ipAddress" : "192.168.0.1", "imei" : "", "email" : "admin@admin.com", "username" : "admin2", "password" : "admin"}}
+    param = {"function": "getVendorList", "data": {"email" : "admin@admin.com", "longitude" : "-6.0123874", "latitude" : "104.072364"}}
 
     print (lambda_handler(param,""))

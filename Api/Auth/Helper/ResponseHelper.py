@@ -30,7 +30,7 @@ class ResponseHelper(object):
 
         response = HResponse()
 
-        response.Message = ("Something Wrong")
+        response.Message = ("Fail")
         response.Status = False
         response.Data = {}
 

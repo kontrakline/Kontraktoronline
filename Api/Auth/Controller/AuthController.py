@@ -43,7 +43,7 @@ class AuthController(object):
         requestLoginParam.IpAddress = cls._requestParam.get("ipAddress")
 
 
-        if not requestLoginParam : return  ResponseHelper.generateResponseFail()
+        if requestLoginParam.Email or requestLoginParam.Password is None : return  ResponseHelper.generateResponseFail()
 
         ### End of cheking param process
 
@@ -129,7 +129,7 @@ class AuthController(object):
         requestRegisterParam.Password = str(random.randrange(100,999)) + str(requestRegisterParam.Password)
 
 
-        if not requestRegisterParam: return ResponseHelper.generateResponseFail()
+        if requestRegisterParam.Email or requestRegisterParam.Password is None : return ResponseHelper.generateResponseFail()
 
         ### End of cheking param process
 
@@ -192,5 +192,5 @@ class AuthController(object):
         #
         # Step 1
 
-        return  ResponseHelper.generateResponseSuccess()
+        return  ResponseHelper.generateResponseSuccess({})
 

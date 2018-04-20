@@ -20,7 +20,7 @@ class Microservice(object):
 
 
     @classmethod
-    def prepre(cls, paramRequest):
+    def prepare(cls, paramRequest):
         logging.info("@---- Initialize Microservice ----")
 
         cls._env                = envHelper.getEnv()

@@ -14,3 +14,11 @@ class Rvendor(object):
         logging.info("@ - - getVendorRecomendation")
         ###checking redis
         return VendorController.getVendorRecomendation()
+
+    def getVendorList(self):
+        logging.info("@ - - getVendorList")
+        return VendorController.getVendorList()
+
+    def getVendorDetails(self):
+        logging.info("@ - - getVendorDetails")
+        return VendorController.getVendorDetails()
